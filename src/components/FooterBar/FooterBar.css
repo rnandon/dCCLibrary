@@ -1,0 +1,13 @@
+.footerbar-nav {
+    background-color: slategray;
+    text-align: center;
+    width: 100%;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
+
+h4 {
+    padding-bottom: 0.2em;
+    padding-left: 1em;
+}
