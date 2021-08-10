@@ -3,6 +3,7 @@ import './App.css'
 import TitleBar from './TitleBar/TitleBar';
 import BookViewer from './BookViewer/BookViewer';
 import FooterBar from './FooterBar/FooterBar';
+import NewBookForm from './NewBookForm/NewBookForm';
 
 class App extends Component {
     constructor(props){
@@ -16,7 +17,8 @@ class App extends Component {
             {title: "The Pragmatic Programmer", author: "Andrew Hunt, David Thomas"}
         ];
         this.state = {
-            bookNumber: 0
+            bookNumber: 0,
+            newBookForm: false
         };
     }
 
@@ -42,14 +44,35 @@ class App extends Component {
         });
     }
 
+    addBook = (book) => {
+        this.books.push(book)
+    }
+
+    toggleNewBookForm = () => {
+        let currentFormState = this.state.newBookForm
+        this.setState({
+            newBookForm: !currentFormState
+        })
+    }
+
     render(){
-        return (
-            <div className="container-fluid">
-                <TitleBar />
-                <BookViewer book={this.books[this.state.bookNumber]} nextBook={this.goToNextBook} previousBook={this.goToPreviousBook} />
-                <FooterBar />
-            </div>
-        )
+        if(!this.state.newBookForm){
+            return (
+                <div className="container-fluid">
+                    <TitleBar toggleForm={this.toggleNewBookForm} />
+                    <BookViewer book={this.books[this.state.bookNumber]} nextBook={this.goToNextBook} previousBook={this.goToPreviousBook} />
+                    <FooterBar />
+                </div>
+            )
+        } else {
+            return (
+                <div className="container-fluid">
+                    <TitleBar toggleForm={this.toggleNewBookForm}/>
+                    <NewBookForm addBook={this.addBook} toggleForm={this.toggleNewBookForm}/>
+                    <FooterBar />
+                </div>
+            )
+        }
     }
 }
 
